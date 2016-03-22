@@ -163,6 +163,26 @@ def main():
     parser_destroy.add_argument('--tag', default='', help='tag')
     parser_destroy.add_argument('--fee', help='the exact {} fee to be paid to miners'.format(config.BTC))
 
+    parser_poll = subparsers.add_parser('poll', help='create a poll for asset holders')
+    parser_poll.add_argument('--source', required=True, help='the source address')
+    parser_poll.add_argument('--asset', required=True, help='the ASSET of which you would like the holders to vote')
+    parser_poll.add_argument('--votename', required=True, help='the (unique) name of the poll')
+    parser_poll.add_argument('--duration', required=True, help='the duration of the poll')
+    parser_poll.add_argument('--options', required=True, help='csv list of options for the poll')
+    parser_poll.add_argument('--fee', help='the exact {} fee to be paid to miners'.format(config.BTC))
+
+    parser_polls = subparsers.add_parser('polls', help='list polls')
+    parser_polls.add_argument('--asset', help='the ASSET of which you would like the holders to vote')
+    parser_polls.add_argument('--votename', help='the name of the poll, will be wildcard matches as *<votename>*')
+    parser_polls.add_argument('--expired', help='show expired')
+
+    parser_vote = subparsers.add_parser('vote', help='vote on a poll')
+    parser_vote.add_argument('--source', required=True, help='the source address')
+    parser_vote.add_argument('--votename', required=True, help='the name of the poll')
+    parser_vote.add_argument('--option', required=True, help='which option to vote for')
+    parser_vote.add_argument('--vote', type=int, default=100, help='how much of your stake to vote with (1% -> 100%), defaults to 100%')
+    parser_vote.add_argument('--fee', help='the exact {} fee to be paid to miners'.format(config.BTC))
+
     parser_address = subparsers.add_parser('balances', help='display the balances of a {} address'.format(config.XCP_NAME))
     parser_address.add_argument('address', help='the address you are interested in')
 
@@ -238,7 +258,7 @@ def main():
 
 
     # VIEWING
-    elif args.action in ['balances', 'asset', 'wallet', 'pending', 'getinfo', 'getrows']:
+    elif args.action in ['balances', 'asset', 'wallet', 'pending', 'getinfo', 'getrows', 'polls']:
         view = console.get_view(args.action, args)
         print_method = getattr(console, 'print_{}'.format(args.action), None)
         if args.json_output or print_method is None:

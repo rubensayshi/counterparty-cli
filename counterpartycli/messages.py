@@ -26,7 +26,9 @@ MESSAGE_PARAMS = {
     'rpsresolve': ['source', 'random', 'move', 'rps_match_id'],
     'publish': ['source', 'gasprice', 'startgas', 'endowment','code_hex'],
     'execute': ['source', 'contract_id', 'gasprice', 'startgas', 'value', 'payload_hex'],
-    'destroy': ['source', 'asset', 'quantity', 'tag']
+    'destroy': ['source', 'asset', 'quantity', 'tag'],
+    'poll': ['source', 'votename', 'asset', 'duration', 'options'],
+    'vote': ['source', 'votename', 'option', 'vote']
 }
 
 class InputError(Exception):

@@ -14,6 +14,14 @@ def get_view(view_name, args):
         return wallet.pending()
     elif view_name == 'getinfo':
         return util.api('get_running_info')
+    elif view_name == 'polls':
+        params = {
+            'asset': args.asset,
+            'active': not args.expired,
+            'votename_match': args.votename,
+        }
+
+        return util.api('list_polls', params)
     elif view_name == 'getrows':
         method = 'get_{}'.format(args.table)
         if args.filter:

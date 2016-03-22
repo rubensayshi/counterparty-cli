@@ -21,6 +21,8 @@ CONFIG_ARGS = [
     [('--testnet',), {'action': 'store_true', 'default': False, 'help': 'use {} testnet addresses and block numbers'.format(config.BTC_NAME)}],
     [('--testcoin',), {'action': 'store_true', 'default': False, 'help': 'use the test {} network on every blockchain'.format(config.XCP_NAME)}],
 
+    [('--disablepolls',), {'action': 'store_true', 'default': False, 'help': 'disable parsing poll broadcast messages'}],
+
     [('--backend-name',), {'default': 'addrindex', 'help': 'the backend name to connect to'}],
     [('--backend-connect',), {'default': 'localhost', 'help': 'the hostname or IP of the backend server'}],
     [('--backend-port',), {'type': int, 'help': 'the backend port to connect to'}],
@@ -113,8 +115,10 @@ def main():
                                 requests_timeout=args.requests_timeout,
                                 rpc_batch_size=args.rpc_batch_size,
                                 check_asset_conservation=not args.no_check_asset_conservation,
-                                force=args.force, verbose=args.verbose, console_logfilter=os.environ.get('COUNTERPARTY_LOGGING', None))
-                                #,broadcast_tx_mainnet=args.broadcast_tx_mainnet)
+                                force=args.force, verbose=args.verbose, console_logfilter=os.environ.get('COUNTERPARTY_LOGGING', None),
+                                broadcast_parse_polls=not args.disablepolls
+                                #,broadcast_tx_mainnet=args.broadcast_tx_mainnet
+                                   )
         except TypeError as e:
             if 'unexpected keyword argument' in str(e):
                 raise VersionError('Unsupported Server Parameter. CLI/Library Version Incompatibility.')
