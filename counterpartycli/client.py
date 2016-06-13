@@ -44,6 +44,8 @@ CONFIG_ARGS = [
     [('--unconfirmed',), {'action': 'store_true', 'default': False, 'help': 'allow the spending of unconfirmed transaction outputs'}],
     [('--encoding',), {'default': 'auto', 'type': str, 'help': 'data encoding method'}],
     [('--fee-per-kb',), {'type': D, 'default': D(config.DEFAULT_FEE_PER_KB / config.UNIT), 'help': 'fee per kilobyte, in {}'.format(config.BTC)}],
+    [('--estimate-fee-per-kb',), {'action': 'store_true', 'dest': 'estimate_fee_per_kb', 'default': config.ESTIMATE_FEE_PER_KB, 'help': 'estimate fee per kilobyte'}],
+    [('--dont-estimate-fee-per-kb',), {'action': 'store_false', 'dest': 'estimate_fee_per_kb', 'default': config.ESTIMATE_FEE_PER_KB, 'help': 'don\'t estimate fee per kilobyte'}],
     [('--regular-dust-size',), {'type': D, 'default': D(config.DEFAULT_REGULAR_DUST_SIZE / config.UNIT), 'help': 'value for dust Pay‐to‐Pubkey‐Hash outputs, in {}'.format(config.BTC)}],
     [('--multisig-dust-size',), {'type': D, 'default': D(config.DEFAULT_MULTISIG_DUST_SIZE / config.UNIT), 'help': 'for dust OP_CHECKMULTISIG outputs, in {}'.format(config.BTC)}],
     [('--op-return-value',), {'type': D, 'default': D(config.DEFAULT_OP_RETURN_VALUE / config.UNIT), 'help': 'value for OP_RETURN outputs, in {}'.format(config.BTC)}],
